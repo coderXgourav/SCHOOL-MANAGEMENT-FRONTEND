@@ -1,5 +1,6 @@
 import "./viewStudent.css";
 import Header from "../header/Header";
+import { Link } from "react-router-dom";
 const ViewStudent = () =>{
  return (
   <>
@@ -17,7 +18,9 @@ const ViewStudent = () =>{
         </div>
         <div>
         <h2>View Students</h2>
+        <Link to={"/admin/add-student"}>
         <button id="addStudentBtn" class="btn btn-primary" style={{margin: "20px 0"}}>Add New Student</button>
+        </Link>
         <table class="students-table">
             <thead>
                 <tr>

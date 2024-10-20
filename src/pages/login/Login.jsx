@@ -16,8 +16,9 @@ const Login = () =>{
                 <input type="password" placeholder="Password" required />
             </div>
             <div class="remember-forgot">
+                
                 <label>
-                    <input type="checkbox" /> Remember me
+                    <input type="checkbox" /> <span>Remember me</span>
                 </label>
                 <a href="#" style={{color: "#007bff", textDecoration: "none"}}>Forgot password?</a>
             </div>
