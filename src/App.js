@@ -6,6 +6,8 @@ import ViewStudent from "./pages/dashboard/student/ViewStudent";
 import AddStudent from "./pages/dashboard/student/AddStudent";
 import ViewTeacher from "./pages/dashboard/teacher/ViewTeacher";
 import AddTeacher from "./pages/dashboard/teacher/AddTeacher";
+import ViewClass from "./pages/dashboard/class/ViewClass";
+import AddClass from "./pages/dashboard/class/AddClass";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/admin/add-student" element={<AddStudent />} />
         <Route path="/admin/view-teacher" element={<ViewTeacher />} />
         <Route path="/admin/add-teacher" element={<AddTeacher />} />
+        <Route path="/admin/view-class" element={<ViewClass />} />
+        <Route path="/admin/add-class" element={<AddClass />} />
       </Routes>
     </Router>
   );

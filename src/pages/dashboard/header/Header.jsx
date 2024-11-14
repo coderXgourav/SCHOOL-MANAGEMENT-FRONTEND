@@ -13,7 +13,7 @@ const Header = ()=>{
     <li><Link to="/admin/dashboard"><i data-feather="home"></i> Dashboard</Link></li>
     <li><Link to="/admin/view-student"><i data-feather="users"></i> Students</Link></li>
     <li><Link to="/admin/view-teacher"><i data-feather="user"></i> Teachers</Link></li>
-    <li><Link to="#"><i data-feather="calendar"></i> Classes</Link></li>
+    <li><Link to="/admin/view-class"><i data-feather="calendar"></i> Classes</Link></li>
     <li><Link to="#"><i data-feather="clipboard"></i> Attendance</Link></li>
     <li><Link to="#"><i data-feather="file-text"></i> Grades</Link></li>
     <li><Link to="#"><i data-feather="book-open"></i> Curriculum</Link></li>
