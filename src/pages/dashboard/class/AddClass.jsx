@@ -1,34 +1,83 @@
 import { useState } from "react";
 import Header from "../header/Header";
+import {AddClassFn} from "../../../utils/api";
+import { Button, notification } from "antd";
+import { useNavigate } from "react-router-dom";
+
 // import "./addStudent.css";
 import { Link } from "react-router-dom";
 const AddClass = () => {
+  const navigate = useNavigate();
   const [className, setClass] = useState("");
-  const [section, setSection] = useState("");
+  const [section, setSection] = useState([]);
+  const [newSection , setNewSection] =  useState("");
   const [sectionForm, setSectionForm] = useState([1]);
-  const formHandler = (e) =>{
-    e.preventDefault();
+  const [btn, setBtn] = useState("Submit Class");
+const [api, contextHolder] = notification.useNotification();
 
+const sectionChange = (e) => {
+  const index = parseInt(e.target.name);
+  const updatedSection = [...section];
+  updatedSection[index] = e.target.value;
+  setSection(updatedSection);
+};
+  const formHandler = async(e) =>{
+    e.preventDefault();
+    setBtn("Please Wait..")
+ console.log(section);
+    const data = {className,sections:section};
+    const result = await AddClassFn(data);
+    const {status,title,desc} = result;
+    if(status){
+      setSection([""]);
+      setClass("");
+    }
+    openNotification(status,title,desc);
+    setBtn("Submit Class")
   }
-  const AddSection = ()=>{
-    setSectionForm([...sectionForm,2]);
+  const openNotification = (status,title,desc,topRight) => {
+    if(status){
+        api.success({
+            message: title,
+            description:
+            desc,
+            topRight,
+          });
+
+    }else{
+        api.error({
+            message: title,
+            description:
+            desc,
+            topRight,
+          });
+    }
+  
+  };
+
+  const AddSection = () => {
+    setSectionForm([...sectionForm, '']); 
+  };
+  const RemoveSection =(id) =>{
+    document.getElementById(id).style.display="none";
+    const newSection = section.filter((item,index)=>{
+      return index!=id;
+    });
+    setSection([...newSection]);
   }
-  const RemoveSection =() =>{
-  }
+
+  
 
   const textChange = (e) =>{
-    console.log(e);
    const {name,value} = e.target;
    if(name=="className"){
     setClass(value);
-   }else if(name=="section"){
-    setSection(value);
    }
-
   }
 
   return (
     <>
+    {contextHolder}
       <div className="dashboard">
         <Header />
         <div class="main-content" style={{ width: "70%" }}>
@@ -43,6 +92,7 @@ const AddClass = () => {
             <h2>Add New Class</h2>
             <Link to={"/admin/view-class"}>
               <button
+              type="button"
                 id="addStudentBtn"
                 class="btn btn-primary"
                 style={{ margin: "20px 0" }}
@@ -66,35 +116,45 @@ const AddClass = () => {
                   onChange={textChange}
                 />
               </div>
-              {sectionForm.map((item) => (
+              {sectionForm.map((item,key) => (
                 <div
                   style={{
                     width: "60%",
                     display: "flex",
                     alignItems: "center",
                     gap: "8px",
-                  }}
+                  }} id={key}
                 >
-                  <div style={{ width: "70%" }}>
+                  <div style={{ width: "70%" }} >
                     <span className="label">Sections </span>
-                    <input  type="text" placeholder="Section" name="section" onChange={textChange} />
+                    <input
+          key={key}
+          type="text"
+          placeholder="Section"
+          name={key.toString()}
+          value={section[key]}
+          onChange={sectionChange}
+          required
+        />
+                    {/* <input  type="text" placeholder="Section" name={`section${key}`} value={section[`section${key}`]} onChange={sectionChange} required={true}/> */}
                   </div>
                   <div style={{gap:"5px"}}>
-                  <button className="btn btn-primary" onClick={AddSection}>+</button> 
+                  <button type="button" className="btn btn-primary" onClick={AddSection}>+</button> 
                   <span> </span>
-                  <button className="btn btn-danger" onClick={RemoveSection}> -</button>
+                  <button type="button" className="btn btn-danger" onClick={()=>{RemoveSection(key)}}> -</button>
                   </div>
                 </div>
               ))}
-            </form>
-
-            <button
+                <button
+            type="submit"
               id="addStudentBtn"
               class="btn btn-primary"
               style={{ margin: "20px 0" }}
             >
-              Submit Class
-            </button>
+              {btn}            </button>
+            </form>
+
+          
           </div>
         </div>
       </div>

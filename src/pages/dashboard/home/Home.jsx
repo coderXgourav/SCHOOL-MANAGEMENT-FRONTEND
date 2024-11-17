@@ -1,6 +1,32 @@
 import "./home.css";
 import Header from "../header/Header";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import {loginVerify} from "../../../utils/api";
+
 const Home = () =>{
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        const token = localStorage.getItem("token");
+        if(!token){
+            navigate('/');
+        }else{
+           let result =  loginVerify(token);
+           result.then((result)=>{
+               if(!result.status){
+                navigate('/');
+               }
+           }).catch(e=>{
+            console.log(e);
+           })
+          
+          
+        }
+       
+    },[]);
+  
  return (
   <>
 <div className="dashboard">
