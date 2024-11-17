@@ -8,6 +8,7 @@ import ViewTeacher from "./pages/dashboard/teacher/ViewTeacher";
 import AddTeacher from "./pages/dashboard/teacher/AddTeacher";
 import ViewClass from "./pages/dashboard/class/ViewClass";
 import AddClass from "./pages/dashboard/class/AddClass";
+import EditClass from "./pages/dashboard/class/EditClass";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/admin/add-teacher" element={<AddTeacher />} />
         <Route path="/admin/view-class" element={<ViewClass />} />
         <Route path="/admin/add-class" element={<AddClass />} />
+        <Route path="/admin/edit-class/:id" element={<EditClass />} />
       </Routes>
     </Router>
   );
